@@ -1,0 +1,47 @@
+int one, two, three, four;
+	int max = 0;
+	for(int i = 0; i < n; i++){
+		if(dis[i].size() == 1) break;
+		for(int j = i+1; j < n; j++){
+			if(dis[i].size() == 2 && dis[i].begin()->first == j) break;
+
+			if(dis[j].size() == 1) break;
+			if(dis[j].size() == 2 && dis[j].begin()->first == i) break;
+			if(dis[i].size() == 2 && dis[i].size() == 2 && dis[i].begin()->first == dis[j].begin()->first) break;
+
+			int left, right;
+			left = dis[i].begin()->first;
+			right = dis[j].begin()->first;
+			if(left != right){
+				if( max < distance[i][j] + dis[i].begin()->second + dis[j].begin()->second){
+					one = left;
+					two = i;
+					three = j;
+					four = right;
+					max = distance[i][j] + dis[i].begin()->second + dis[j].begin()->second;
+				}
+			}
+			else{
+				if(dis[i].size() >= 3) left = (++dis[i].begin())->first;
+				if( max < distance[i][j] + (++dis[i].begin())->second + dis[j].begin()->second){
+					one = left;
+					two = i;
+					three = j;
+					four = right;
+					max = distance[i][j] + (++dis[i].begin())->second + dis[j].begin()->second;
+				}
+
+				if(dis[j].size() >= 3) right = (++dis[j].begin())->first;
+				left = dis[i].begin()->first;
+				if( max < distance[i][j] + (++dis[j].begin())->second + dis[i].begin()->second){
+					one = left;
+					two = i;
+					three = j;
+					four = right;
+					max = distance[i][j] + (++dis[j].begin())->second + dis[i].begin()->second;
+				}
+			}
+		}
+	}
+
+	cout<<one<<" "<<two<<" 

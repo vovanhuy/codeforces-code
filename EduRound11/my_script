@@ -1,0 +1,17 @@
+#!/bin/bash 
+
+CFILE=$1
+
+OBJFILE="${CFILE%.*}"
+
+if g++ $CFILE -o $OBJFILE >&2;
+then
+  echo "Built file: $CFILE -> $OBJFILE"
+  echo "Executing file..."
+  ./$OBJFILE
+  exit 0
+else
+  echo "Compilation error"
+  echo $comerr
+  exit 1
+fi
